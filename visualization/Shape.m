@@ -17,8 +17,13 @@ classdef (Abstract=true) Shape < handle
     methods
         % Constructor
         function obj = Shape
-            % For SE3
-            addpath('groupTheory')
+            % Add SE3 path
+            fileDir = mfilename('fullpath');
+            % Go up two directories
+            directories = findstr(fileDir,'/');
+            librariesPath = fileDir(1:directories(end-1));
+            % Add SE3 to the path
+            addpath([librariesPath '/groupTheory'])
             % Body frame with respect to global frame
             obj.frame = SE3;
         end
