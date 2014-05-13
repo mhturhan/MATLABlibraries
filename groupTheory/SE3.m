@@ -192,6 +192,10 @@ classdef SE3 < handle
             % R(3,3) = cos(beta)*cos(gamma)
             gamma = acos(obj.g(3,3)/cos(beta));
             rOut = [gamma; beta; alpha];
+            % Simplify the expression if applicable
+            if class(rOut) == 'sym'
+                rOut = simplify(rOut,'IgnoreAnalyticConstraints',true);
+            end
         end
 
         function ROut = R(obj) % Extract Rotation Matrix
