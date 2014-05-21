@@ -1,1 +1,3 @@
 *.swp
+# Ignore a library downloaded from MATLAB Central File Exchange
+plot2svg/
