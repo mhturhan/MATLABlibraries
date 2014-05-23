@@ -38,6 +38,14 @@ classdef CylinderClass < Shape
             % Make a cylinder
             [obj.x obj.y z] = cylinder(radius,20);
             obj.z = height*(z - 1/2); % Center about the origin and scale from unit height
+
+            % Point the cylinder along the x axis
+            x = obj.x;
+            y = obj.y;
+            z = obj.z;
+            obj.x = z;
+            obj.y = x;
+            obj.z = y;
         end % CylinderClass
 
         function plot(obj)
@@ -47,10 +55,10 @@ classdef CylinderClass < Shape
             % Plot the cylindrical surface
             obj.plotHandle1 = surf(plotX, plotY, plotZ);
             set(obj.plotHandle1, 'FaceColor',[1 0.6 0], 'FaceAlpha',1, 'EdgeAlpha', 0);
+            hold on
             % Plot the end caps
             obj.plotHandle2 = fill3(plotX(1,:),  plotY(1,:),  plotZ(1,:),[1 0.6 0]);
             obj.plotHandle3 = fill3(plotX(end,:),plotY(end,:),plotZ(end,:),[1 0.6 0]);
-            hold on
         end
 
         function updatePlotData(obj)
