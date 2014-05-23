@@ -1,5 +1,5 @@
 % This is a class to visualize a cylinder.  The cylinder
-% is created centered around the origin.
+% is created centered around the origin, aligned along the x-axis.
 %
 % Constructor argument options:
 %   CylinderClass: radius=1 height=1

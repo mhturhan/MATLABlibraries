@@ -12,19 +12,21 @@ classdef SerialLink < handle
 
         f0 % The origin
         qxyz % The rotation vector between f0 and f
-        r % Link length
+        l % Link length
+        r % Radius
 
         vis % CylinderClass object
     end
 
     methods
         % Constructor
-        function obj = SerialLink(f0, qxyz, r)
+        function obj = SerialLink(f0, qxyz, l, r)
             % Defaults if no arguments
             if nargin == 0
                 f0 = SE3;       % The identity matrix
                 qxyz = [0 0 0]; % No rotation
-                r = 1;          % Unit length
+                l = 1;          % Unit length
+                r = 0.1;        % Radius
             end
 
             % Link start
@@ -38,20 +40,21 @@ classdef SerialLink < handle
             end
 
             % Link midpoint
-            obj.g1f1 = SE3([r/2 0 0]);
+            obj.g1f1 = SE3([l/2 0 0]);
             obj.g1f0 = obj.f1f0*obj.g1f1;
 
             % Link end
-            obj.h1g1 = SE3([r/2 0 0]);
+            obj.h1g1 = SE3([l/2 0 0]);
             obj.h1f0 = obj.g1f0*obj.h1g1;
 
             % Save the input variables
             obj.f0   = f0;
             obj.qxyz = qxyz;
+            obj.l    = l;
             obj.r    = r;
 
             % Create a visualization object
-            obj.vis = CylinderClass(r/10,r);
+            obj.vis = CylinderClass(r,l);
         end % serialLink
 
         function plot(obj)
