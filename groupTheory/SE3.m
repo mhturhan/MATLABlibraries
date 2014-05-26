@@ -193,7 +193,7 @@ classdef SE3 < handle
             gamma = acos(obj.g(3,3)/cos(beta));
             rOut = [gamma; beta; alpha];
             % Simplify the expression if applicable
-            if class(rOut) == 'sym'
+            if isa(rOut,'sym')
                 rOut = simplify(rOut,'IgnoreAnalyticConstraints',true);
             end
         end
