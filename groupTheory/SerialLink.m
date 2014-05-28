@@ -99,6 +99,42 @@ classdef SerialLink < handle
             % object might not show up
         end % plotObjPos
 
+        function showCoord(obj,g)
+            % Show the coordinate system of the object at a position (g)
+
+            % Make an SE3 object of the center frame
+            g = SE3(g);
+
+            % Move in the x direction
+            gx = g*SE3([3*obj.l/2 0 0]);
+            % Move in the y direction
+            gy = g*SE3([0 obj.r*2 0]);
+            % Move in the z direction
+            gz = g*SE3([0 0 obj.r*2]);
+
+            % Plot a line in the x-direction
+            plot3([g.x gx.x],[g.y gx.y],[g.z gx.z],'r')
+            % Plot a line in the y-direction
+            plot3([g.x gy.x],[g.y gy.y],[g.z gy.z],'g')
+            % Plot a line in the z-direction
+            plot3([g.x gz.x],[g.y gz.y],[g.z gz.z],'b')
+        end % showCoord
+
+        function traceEnd(obj,g,prop)
+            % Trace the end of the link given
+            %   g: the center frame
+            %   prop: the plot properties
+
+            % Make an SE3 object of the center frame
+            g = SE3(g);
+
+            % Move to the end of the link
+            h = g*SE3([obj.l/2 0 0]);
+
+            % Plot the point
+            plot3(h.x,h.y,h.z,prop)
+        end % traceEnd
+
     end % methods
 
 end % classdef
