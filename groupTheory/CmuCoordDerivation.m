@@ -25,22 +25,22 @@ z_f0_f0 = [0;
            0;
            0];
 
-% Spatial velocity of yaw "link"
+% Add relative velocity of yaw "link"
 z_f1_f0 = z_f0_f0 + [0; 0; dYaw];
-% Body velocity of yaw "link"
+% Transform coordinate frame to yaw "link"
 z_f1_f0 = Rz.'*z_f1_f0;
 
-% Spatial velocity of pitch "link"
+% Add relative velocity of pitch "link"
 z_f2_f1 = z_f1_f0 + [0; dPitch; 0];
-% Body velocity of pitch "link"
+% Transform coordinate frame to pitch "link"
 z_f2_f1 = Ry.'*z_f2_f1;
 
-% Spatial velocity of roll "link"
+% Add relative velocity of roll "link"
 z_f3_f2 = z_f2_f1 + [dRoll; 0; 0];
-% Body velocity of roll "link"
+% Transform coordinate frame to roll "link"
 z_f3_f2 = Rx.'*z_f3_f2;
 
-% Body velocity of the roll "link" with respect to f0
+% Transform coordinate frame to world (f0)
 z_f3_f0 = Rz*Ry*Rx*z_f3_f2;
 
 % Equate the IMU data to these velocities
