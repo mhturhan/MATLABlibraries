@@ -21,32 +21,32 @@ Rz = [cos(yaw) -sin(yaw) 0;
 
 % Move from the world frame to the robot frame
 % The world has zero angular velocity
-z_f0 = [0;
-        0;
-        0];
+z_f0_f0 = [0;
+           0;
+           0];
 
 % Spatial velocity of yaw "link"
-z_f1 = z_f0 + [0; 0; dYaw];
+z_f1_f0 = z_f0_f0 + [0; 0; dYaw];
 % Body velocity of yaw "link"
-z_f1 = Rz.'*z_f1;
+z_f1_f0 = Rz.'*z_f1_f0;
 
 % Spatial velocity of pitch "link"
-z_f2 = z_f1 + [0; dPitch; 0];
+z_f2_f1 = z_f1_f0 + [0; dPitch; 0];
 % Body velocity of pitch "link"
-z_f2 = Ry.'*z_f2;
+z_f2_f1 = Ry.'*z_f2_f1;
 
 % Spatial velocity of roll "link"
-z_f3 = z_f2 + [dRoll; 0; 0];
+z_f3_f2 = z_f2_f1 + [dRoll; 0; 0];
 % Body velocity of roll "link"
-z_f3 = Rx.'*z_f3;
+z_f3_f2 = Rx.'*z_f3_f2;
 
-% Move the body velocity of the roll "link" to world coordinates
-z_f4 = Rz*Ry*Rx*z_f3;
+% Body velocity of the roll "link" with respect to f0
+z_f3_f0 = Rz*Ry*Rx*z_f3_f2;
 
 % Equate the IMU data to these velocities
-solutions = solve(z_f4(1) == IMUx,...
-                  z_f4(2) == IMUy,...
-                  z_f4(3) == IMUz,...
+solutions = solve(z_f3_f0(1) == IMUx,...
+                  z_f3_f0(2) == IMUy,...
+                  z_f3_f0(3) == IMUz,...
                   [dYaw dPitch dRoll]);
 
 % Simplify and print the equations
