@@ -9,6 +9,7 @@ classdef SerialLink < handle
         g1f0 % Link midpoint w.r.t f0 (SE3 element)
         h1g1 % Link endpoint w.r.t g1 (SE3 element)
         h1f0 % Link endpoint w.r.t f0 (SE3 element)
+        h1f1 % Link endpoint w.r.t f1 (SE3 element)
 
         f0 % The origin
         qxyz % The rotation vector between f0 and f
@@ -45,6 +46,7 @@ classdef SerialLink < handle
 
             % Link end
             obj.h1g1 = SE3([l/2 0 0]);
+            obj.h1f1 = obj.g1f1*obj.h1g1;
             obj.h1f0 = obj.g1f0*obj.h1g1;
 
             % Save the input variables
