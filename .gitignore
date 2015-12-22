@@ -1,3 +1,4 @@
 *.swp
-# Ignore a library downloaded from MATLAB Central File Exchange
+# Ignore libraries downloaded from MATLAB Central File Exchange
 plot2svg/
+PolyfitnTools/
